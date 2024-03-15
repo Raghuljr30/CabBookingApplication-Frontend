@@ -1,0 +1,281 @@
+
+
+
+  <div class="container-fluid">
+
+    <div class="bg-light row ">
+        <div class="col-8  ps-5 pt-4 ">
+        <p class="text-start">{{cabAgencyDetail.cabAgencyName}}</p>
+        </div>
+
+        <div class="col   p-4 ps-5">
+           <p class="text-end"><button class="text-brave"> Logout</button></p> 
+        </div>
+
+    </div>
+
+   
+    </div>
+
+     <div class="container overflow-hidden">
+        <div class="row gy-3">
+
+   
+            <div class="col-6">
+                <button (click)="addCabs()">Add Cabs</button>
+            </div >
+                
+            <div class="col-6">
+                <button (click)="addDrivers()">Add Drivers</button>
+            </div>
+
+            <div class="col-4">
+                <button (click)="functionToBePerformed('changeCabLocation')">To Change Cab location</button>
+            </div>
+
+            <div class="col-4">
+                <button (click)="functionToBePerformed('changeMobileNumber')">To Change Mobile Number</button>
+            </div>
+
+            <div class="col-4">
+                <button (click)="functionToBePerformed('changePassword')">To Change Password</button> 
+            </div>
+            
+            
+            
+            
+           
+        </div>
+
+    </div> 
+
+
+
+     <!-- <div class="mt-5 container">
+        <div class=" row">
+            <div class="col-4">
+    
+            </div>
+    
+            <div class="col-4">
+           
+                <div *ngIf="setRole==='changeCabLocation'">
+                    <h4>Change cab Location</h4>
+    
+                    <form id="" class="pt-5">
+                        <label>Enter Cab Id</label><br>
+                        <input type="text" name="cabId" id="cabId" [(ngModel)]="cabId"><br>
+                        <label>Enter Pickup Location</label><br>
+                        <input type="text" name="cabPickUpLocation" id="cabPickUpLocation" [(ngModel)]="cabPickUpLocation"><br>
+                        <label>Enter Drop Location</label><br>
+                        <input type="text" name="cabDropLocation" id="cabDropLocation" [(ngModel)]="cabDropLocation"><br>
+                    
+                        <button (click)="updateCabPickUpAndDropPoint()">Submit to Update</button>
+                    
+                        </form>
+                        
+                    
+                
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+     <div class="mt-5 container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div *ngIf="setRole==='changeCabLocation' && changeCabAgencyLocationButtonClicked">
+                    <h4>Change cab Location</h4>
+                    <form id="changeCabLocationForm" class="pt-5" (ngSubmit)="updateCabPickUpAndDropPoint()" #changeCabLocationForm="ngForm">
+                        <div class="mb-3">
+                            <label for="cabId">Enter Cab Id</label><br>
+                            <input type="text" name="cabId" id="cabId" [(ngModel)]="cabId" required><br>
+                            <div *ngIf="changeCabLocationForm.controls['cabId'].invalid && (changeCabLocationForm.controls['cabId'].dirty || changeCabLocationForm.controls['cabId'].touched)" class="text-danger">
+                                Cab Id is required.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cabPickUpLocation">Enter Pickup Location</label><br>
+                            <input type="text" name="cabPickUpLocation" id="cabPickUpLocation" [(ngModel)]="cabPickUpLocation" required><br>
+                            <div *ngIf="changeCabLocationForm.controls['cabPickUpLocation'].invalid && (changeCabLocationForm.controls['cabPickUpLocation'].dirty || changeCabLocationForm.controls['cabPickUpLocation'].touched)" class="text-danger">
+                                Pickup Location is required.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cabDropLocation">Enter Drop Location</label><br>
+                            <input type="text" name="cabDropLocation" id="cabDropLocation" [(ngModel)]="cabDropLocation" required><br>
+                            <div *ngIf="changeCabLocationForm.controls['cabDropLocation'].invalid && (changeCabLocationForm.controls['cabDropLocation'].dirty || changeCabLocationForm.controls['cabDropLocation'].touched)" class="text-danger">
+                                Drop Location is required.
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="changeCabLocationForm.invalid">Submit to Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- <div class="mt-5 container">
+        <div class=" row">
+            <div class="col-4">
+    
+            </div>
+    
+            <div class="col-4">
+             
+                <div *ngIf="setRole==='changeMobileNumber'">
+                    <h4>Change Mobile Number</h4>
+    
+                    <form class="pt-5">
+                        <label>Enter New Mobile Number</label><br>
+                        <input type="text" name="newCabAgencyMobileNumber" id="newCabAgencyMobileNumber" [(ngModel)]="cabAgencyNewMobileNumber"><br>
+                        <button (click)="updateCabAgencyMobileNumber()">Submit to Update</button>
+                    </form>
+                
+                
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+   <div class="mt-5 container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div *ngIf="setRole==='changeMobileNumber' && updateCabAgencyMobileNumberButtonClicked ">
+                    <h4>Change Mobile Number</h4>
+                    <form class="pt-5" (ngSubmit)="updateCabAgencyMobileNumber()" #changeMobileNumberForm="ngForm">
+                        <div class="mb-3">
+                            <label for="newCabAgencyMobileNumber">Enter New Mobile Number</label><br>
+                            <input type="text" name="newCabAgencyMobileNumber" id="newCabAgencyMobileNumber" [(ngModel)]="cabAgencyNewMobileNumber" required><br>
+                            <div *ngIf="changeMobileNumberForm.controls['newCabAgencyMobileNumber'].invalid && (changeMobileNumberForm.controls['newCabAgencyMobileNumber'].dirty || changeMobileNumberForm.controls['newCabAgencyMobileNumber'].touched)" class="text-danger">
+                                New Mobile Number is required.
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="changeMobileNumberForm.invalid">Submit to Update</button>
+                       
+                       
+                    </form>
+                 
+                </div>
+            </div>
+            
+        </div>
+    </div> 
+
+   
+    <div class=" container">
+        <div class=" row">
+            <div class="col-4">
+    
+            </div>
+    
+            <div class="col-4">
+             
+                <div *ngIf="setRole==='changePassword' && changeCabAgencyPasswordButtonClicked">
+                    <h4>Change Password</h4>
+    
+                    <form class="pt-5" [formGroup]="reactiveform" >
+
+
+                        <label for="password1" class="form-label">Password:</label>
+                         <input type="password" id="password1" formControlName="password1" class="form-control"> 
+                         <span *ngIf="f['password1'].getError('required')!=null" class="text-danger">Password is required</span><br>
+                      
+                        <label for="password2" class="form-label">Confirm Password:</label>
+                        <input type="password" id="password2" formControlName="password2" class="form-control">
+                        <span *ngIf="f['password2'].getError('required')!=null" class="text-danger">Password is required</span><br>
+                        <span *ngIf="f['password2'].getError('Mustmatch')!=null" class="text-danger">password mismatch</span><br>
+                     
+                       
+                      <button [disabled]="reactiveform.invalid" type="submit" (click)="changeCabAgencyPassword()" >Submit to update</button>
+                    </form> 
+                
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="isLoggedInParam" class="pt-3 container">
+        <div class="row">
+             
+                    <div  *ngFor="let cab of cabListOfCabAgency" class="col-4" > 
+                    
+                        <!-- <div class="m-5 card" style="width: 22rem;"> -->
+                            <!-- <div class="card-body"> -->
+                            <!-- <p>Vehicle Number: {{cab.vehicleNumber}}</p>  
+                            <p>Vehicle Id: {{cab.cabId}}</p>
+                            <p>Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                            <p>Vehicle Drop Point: {{cab.dropPoint}}</p>
+                            <p>Vehicle Booked: {{cab.availability}}</p> -->
+
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                  <div class="p-2 flip-card-front ">
+                                     <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                    <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                    <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                    <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                    <p class="text-start" >Vehicle Booked: {{cab.availability}}</p> 
+                     
+                                  </div>
+                                  <div class="p-2 flip-card-back" *ngIf="cab.driver">
+
+                                    <!-- <ng-container *ngFor="let key of cab.driver ? Object.keys(cab.driver) : []">
+                                        <p class="text-start">
+                                            {{ key }}: {{ cab.driver[key] }}
+                                        </p>
+                                    </ng-container> -->
+                                    <p class="text-start">Driver Id: {{cab.driver.driverId}}</p>
+                                    <p class="text-start">Driver Name: {{cab.driver.driverName}}</p>
+                                    <p class="text-start">Driver License Number: {{cab.driver.licenseNumber}}</p>
+                                    <p class="text-start">Driver Email: {{cab.driver.driverEmail}}</p>
+                                    <p class="text-start">Driver Mobile Number:{{cab.driver.driverMobileNumber}}</p>
+
+                                    
+                                    <!-- <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                    <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                    <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                    <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                    <p class="text-start" >Vehicle Booked: {{cab.availability}}</p>  -->
+                     
+                                  </div>
+                                </div>
+                              </div>
+                          
+                              
+                            <!-- </div> -->
+                          <!-- </div> -->
+                          
+            
+                    </div>
+                
+                
+    
+    
+            
+            </div>
+    
+        </div>
+
+
+
+    
+
+
+ 
+
+   
+
+
+
+   
+
+
+
+

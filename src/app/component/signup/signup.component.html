@@ -1,0 +1,119 @@
+
+
+<div *ngIf="cabAgencySignUpError && isErrorThrown" class="m-5 alert alert-danger">
+    <div *ngFor="let error of getSignupErrorMessage()">
+      <p>{{error.key}}: {{error.value}}</p>
+    </div>
+  </div>
+
+<div *ngIf="!isErrorThrown">
+    <div class="pt-3"*ngIf="role==='cabAgency'" class="container">
+
+        <div class="row">
+    
+            <div class="col-4">
+    
+            </div>
+            <div class="pt-5 col-4">
+                <h1>Register Your Cab Agency</h1>
+                <form   id="form-driver-signup">  
+                    <div class="mb-3">
+                        <label class="form-label">Cab Agency Id</label>
+                        <input type="text"  class="form-control" name="cabAgencydId" id="cabAgencyId" [(ngModel)]="cabAgency.cabAgencyId">
+                    </div>
+                   <div class="mb-3"> 
+                    <label class="form-label">Cab Agency name</label>
+                    <input type="text"  class="form-control" name="cabAgencyName" id="cabAgencyName" [(ngModel)]="cabAgency.cabAgencyName">
+                   </div>
+            
+                   <div class="mb-3">
+                    <label class="form-label">Cab Agency MobileNumber</label>
+                    <input type="text" class="form-control" name="cabAgencyMobileNumber" id="cabAgencyMobileNumber" [(ngModel)]="cabAgency.cabAgencyMobileNumber">
+                   </div>
+            
+                   <div class="mb-3">
+                    <label class="form-label">Cab Agency Email</label>
+                    <input type="email" class="form-control" name="cabAgencyEmail" id="cabAgencyEmail" [(ngModel)]="cabAgency.cabAgencyEmail">
+                   </div>
+            
+                   <div class="mb-3">
+                    <label class="form-label">Cab Agency Password</label>
+                    <input type="password" class="form-control" name="cabAgencyPassword" id="cabAgencyPassword" [(ngModel)]="cabAgency.cabAgencyPassword">
+                
+                   </div>
+                    
+                
+                    <button (click)="cabAgencySignup()">register now</button>
+                   
+                </form>
+            
+            
+    
+            </div>
+        </div>
+    
+    </div>
+    
+    <div *ngIf="role==='customer'" class="container">
+    
+    
+        <div class="row">
+    
+            <div class="col-4">
+    
+            </div>
+            <div class="pt-4  col-4">
+               <h1>Customer signup</h1>
+                
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Customer Name</label><br>
+                        <input class="form-control" type="text" name="customerName" id="customerName" [(ngModel)]="customer.name"><br>
+                    </div>
+    
+    
+                    <div class="mb-3">
+                        <label class="form-label">Customer Email</label><br>
+                        <input class="form-control" type="text" name="customerEmail" id="customerEmail" [(ngModel)]="customer.email"><br>
+                    </div>
+    
+    
+                    <div class="mb-3">
+                        <label class="form-label">Customer Password</label><br>
+                        <input class="form-control" type="text" name="customerPassword" id="customerPassword" [(ngModel)]="customer.password"><br>
+                
+                    </div>
+    
+                    <div class="mb-3">
+                        <label class="form-label">Customer Mobile Number</label><br>
+                        <input class="form-control" type="text" name="customerMobileNumber" id="customerMobileNumber" [(ngModel)]="customer.mobileNumber"><br>
+    
+                    </div>
+    
+                 <button (click)="registerCustomer('customer')">Signup</button>
+            
+                </form>
+            
+    
+            </div>
+        </div>
+    
+    
+    
+    
+    
+    
+    
+        
+    
+        
+    
+        
+    
+    
+    
+    
+    
+    </div>
+</div>
+

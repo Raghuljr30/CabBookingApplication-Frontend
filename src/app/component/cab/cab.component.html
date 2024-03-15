@@ -1,0 +1,42 @@
+<p>cab works!</p>
+
+    
+<form id="form-cab">
+   
+    <label>Cab Id</label><br>
+    <input type="text" name="cabId" id="cabId" [(ngModel)]="cab.cabId"><br>
+
+    <label>Cab Model</label><br>
+    <input type="text" name="cabModel" id="cabModel" [(ngModel)]="cab.cabModel"><br>
+
+    <label>Cab AC</label><br>
+    <input type="text" name="ac" id="ac" [(ngModel)]="cab.ac"><br>
+
+    <label>Cab Number of Seats</label><br>
+    <input type="text" name="numberOfSeats" id="numberOfSeats" [(ngModel)]="cab.numberOfSeats"><br>
+
+    <label>Cab Vehicle Number</label><br>
+    <input type="text" name="vehicleNumber" id="vehicleNumber" [(ngModel)]="cab.vehicleNumber"><br>
+
+    <label>Cab availability</label><br>
+    <input type="text" name="availability" id="availability" [(ngModel)]="cab.availability"><br>
+
+    <label>Cab's Cab Agency Name</label><br>
+    <input type="text" name="agencyName" id="agencyName" [(ngModel)]="cab.agencyName"><br>
+
+
+    <label>Cab's Cab Agency Id </label><br>
+    <input type="text" name="cabAgencyId" id="cabAgencyId" [(ngModel)]="cab.cabAgencyId"><br>
+
+    <label>Cab Pickup Point</label><br>
+    <input type="text" name="pickUpPoint" id="pickUpPoint" [(ngModel)]="cab.pickUpPoint"><br>
+
+    <label>Cab Drop Point</label><br>
+    <input type="text" name="dropPoint" id="dropPoint" [(ngModel)]="cab.dropPoint"><br>
+
+    <label>Cab Fair</label><br>
+    <input type="text" name="fair" id="fair" [(ngModel)]="cab.fair"><br>
+
+
+    <button (click)="signupCab()">register now</button>
+</form>

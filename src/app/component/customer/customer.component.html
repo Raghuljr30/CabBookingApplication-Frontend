@@ -1,0 +1,38 @@
+
+
+<div class="container-fluid">
+
+  <div class="bg-light row ">
+      <div class="col-8  ps-5 pt-4 ">
+      <p class="text-start">Welcome {{customerId}}!!!</p>
+      </div>
+
+      <div class="col   p-4 ps-5">
+         <p class="text-end"><button class="text-brave"> Logout</button></p> 
+      </div>
+
+  </div>
+
+
+<button (click)="bookCabButton()">Book cab</button>
+
+
+    <div *ngIf="customerCurrentBooking" class="m-5 border border-primary flex-column bd-highlight mb-1 ">
+      <h2>Your Current Booking </h2>
+      <h4>Note: Click booking over button once you reached your destination to make further booking in future</h4>
+      <div class="p-2 bd-highlight">
+        <p>Booking Id: {{ currentBooking.bookingId }}</p>
+        <p>Booked By: {{ currentBooking.customerName }}</p>
+        <p>Cab Number: {{ currentBooking.cabNumber }}  </p> 
+        <p>Pickup Point: {{ currentBooking.pickUpLocation }}</p>
+        <p>Drop Point: {{ currentBooking.dropLocation}}</p>
+        <p>Fare:{{  currentBookingPayment.paidAmount }}</p>
+        <button (click)="bookingOver()">Booking Over</button>
+      </div>
+      
+      
+    </div>
+    
+    
+  
+  
