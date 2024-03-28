@@ -1,3 +1,4 @@
+
 .flip-card {
     background-color: transparent;
     width: 250px;
@@ -37,3 +38,8 @@
     color: white;
     transform: rotateY(180deg);
   }
+
+  .password-mask {
+    font-family: monospace;
+    font-size: 1.2em;
+}

@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Customer } from '../../models/Customer';
 import { CustomerService } from '../../service/customer.service';
 import { FormsModule } from '@angular/forms';
 import { CabAgency } from '../../models/CabAgency';
 import { CabAgencyService } from '../../service/cab-agency.service';
+
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterLink],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -20,12 +21,22 @@ export class SignupComponent {
   id:number=0
   cabAgencyId:number=0
   cabAgencyEmail:String=""
+  cabAgencySignUpErrorList:any
+
+  registeredCabAgency:CabAgency=new CabAgency();
   
 
   customer: Customer=new Customer();
 
   cabAgencySignUpError:any
   isErrorThrown:Boolean=false;
+
+  setSignupCabAgencySuccessful:boolean=false
+
+  isErrorArray: boolean = false;
+   
+
+// Check if cabAgencySignUpError is an array
 
   
   constructor(private route:ActivatedRoute,
@@ -38,6 +49,8 @@ export class SignupComponent {
   }
 
   
+ 
+
 
 
   registerCustomer(role:String)
@@ -64,10 +77,17 @@ export class SignupComponent {
     this.cabAgencyService.signupCabAgency(this.cabAgency).subscribe(
       data=>{
         console.log(data)
+        this.registeredCabAgency=data;
+        
+        
+        this.setSignupCabAgencySuccessful=true;
+        // this.router.navigateByUrl(`login/${"cabAgency"}`)
       },
       error=>{
         console.log(error);
         this.cabAgencySignUpError=error.error;
+     
+        this.cabAgencySignUpErrorList=[this.cabAgencySignUpError];
         console.log(this.cabAgencySignUpError)
         // window.alert(this.cabAgencySignUpError.cabAgencyName)
         this.isErrorThrown=true;
@@ -80,6 +100,9 @@ export class SignupComponent {
   {
     if(this.cabAgencySignUpError)
     {
+      console.log(Array.isArray(this.cabAgencySignUpError));
+      console.log(Object.entries(this.cabAgencySignUpError).map(([key,value])=>({key,value})))
+      
       return Object.entries(this.cabAgencySignUpError).map(([key,value])=>({key,value}))
     }
     return []

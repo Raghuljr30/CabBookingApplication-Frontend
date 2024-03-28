@@ -14,7 +14,9 @@ export class Cab{
         public pickUpPoint?:String,
         public dropPoint?:String,
         public fair?:number,
-        public driver?:Driver
+       
+        public driverAgencyId?:number,
+        public driver?:Driver,
         )
     {
 

@@ -11,23 +11,23 @@ export class BookingService {
 
   displayAllAvailableCabs()
   {
-    return this.http.get<Cab[]>(`http://localhost:8080/getAllAvailableCabs`)
+    return this.http.get<Cab[]>(`http://localhost:8080/booking/available-cabs`)
   }
 
 
   searchByLocationService(fromLocation:String,toLocation:String)
   {
-    return this.http.get<Cab[]>(`http://localhost:8080/search/cabsByLocation/${fromLocation}/${toLocation}`)
+    return this.http.get<Cab[]>(`http://localhost:8080/booking/bylocation/${fromLocation}/${toLocation}`)
   }
 
   bookCabService(customerId:number,cabId:number,paymentType:String)
   {
-    return this.http.patch(`http://localhost:8080/book/${customerId}/${cabId}/${paymentType}`,null)
+    return this.http.patch(`http://localhost:8080/booking/book/${customerId}/${cabId}/${paymentType}`,null)
   }
 
   bookingOverService(customerId:number,currentBookingId:number)
   {
-    return this.http.patch(`http://localhost:8080/bookingOver/${customerId}/${currentBookingId}`,null)
+    return this.http.patch(`http://localhost:8080/booking/completed/${customerId}/${currentBookingId}`,null)
   }
 
 }

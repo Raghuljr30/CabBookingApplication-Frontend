@@ -1,0 +1,29 @@
+.success-message {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.success-message h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.success-message span {
+    display: block;
+    margin-top: 10px;
+}
+
+.success-message a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.success-message a:hover {
+    text-decoration: underline;
+}

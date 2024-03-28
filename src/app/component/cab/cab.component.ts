@@ -15,16 +15,27 @@ import { CabService } from '../../service/cab.service';
 export class CabComponent {
 
   cab:Cab=new Cab()
+   cabModel:String=""
+   ac?:String=""
+   numberOfSeats?:number=0
+   vehicleNumber?:number=0
+   availability?:boolean=false
+   agencyName?:String=""
+   cabAgencyId?: number
+   pickUpPoint?:String=""
+   dropPoint?:String=""
+   fair?:number
+   driverAgencyId?:number
 
   constructor(private cabService:CabService)
   {
 
   }
 
-  signupCab()
+  registerCab()
   {
     this.cab=new Cab(this.cab.cabId,this.cab.cabModel,this.cab.ac,this.cab.numberOfSeats,this.cab.vehicleNumber,this.cab.availability,
-      this.cab.agencyName,this.cab.cabAgencyId,this.cab.pickUpPoint,this.cab.dropPoint,this.cab.fair);
+      this.cab.agencyName,this.cab.cabAgencyId,this.cab.pickUpPoint,this.cab.dropPoint,this.cab.fair,this.cab.driverAgencyId);
     console.log(this.cab)
     this.cabService.cabSignUp(this.cab).subscribe(
       data=>{

@@ -4,12 +4,15 @@ import { Router } from '@angular/router';
 import { CustomerService } from '../../service/customer.service';
 import { Booking } from '../../models/Booking';
 import { Payment } from '../../models/Payment';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BookingService } from '../../service/booking.service';
+import { tick } from '@angular/core/testing';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @Component({
   selector: 'app-customer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,DatePipe],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.css'
 })
@@ -17,10 +20,15 @@ export class CustomerComponent {
 
   customerId:number=0
 
+
   currentBookingId:number=0
   currentBooking:Booking=new Booking()
   currentBookingPayment:Payment=new Payment()
   customerCurrentBooking:Boolean=false;
+
+  customerCurrentBookingDate:String|null=null
+
+
 
   constructor(private route:ActivatedRoute,
     private router: Router,
@@ -41,6 +49,8 @@ export class CustomerComponent {
 
   }
 
+
+
   displayCurrentBooking()
   {
     this.customerService.displayCurrentBookingService(this.customerId).subscribe(
@@ -55,6 +65,16 @@ export class CustomerComponent {
 
         if(this.currentBooking.bookingId!=undefined)
         this.currentBookingId=this.currentBooking.bookingId
+        
+        if(this.currentBooking.bookingDate && typeof this.currentBooking.bookingDate!= 'boolean')
+        {
+          this.customerCurrentBookingDate=new Date(this.currentBooking.bookingDate).toLocaleDateString();
+        }
+
+
+
+        
+
       }
     )
   }
@@ -65,9 +85,17 @@ export class CustomerComponent {
       data=>{
         console.log(data);
         this.customerCurrentBooking=false;
+
         
       }
     )
+  }
+
+
+  customerLogout()
+  {
+    sessionStorage.removeItem('loggedInCustomer');
+    this.router.navigateByUrl('/home')
   }
 
 }

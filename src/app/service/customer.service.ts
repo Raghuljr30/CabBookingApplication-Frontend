@@ -24,4 +24,13 @@ export class CustomerService {
   {
     return this.http.get(`http://localhost:8080/customer/currentBooking/${customerId}`)
   }
+
+
+
+  isCustomerLoggedIn()
+  { 
+    let customer=sessionStorage.getItem('loggedInCustomer')
+  return !(customer==null)
+
+  }
 }

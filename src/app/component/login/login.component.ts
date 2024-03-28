@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CabAgencyService } from '../../service/cab-agency.service';
 import { CabAgency } from '../../models/CabAgency';
-
+import { cabAgencyLoginRequest } from '../../models/CabAgencyLoginRequest';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,7 +21,7 @@ export class LoginComponent {
   customerPassword:String=''
 
 
- 
+  cabAgencyLoginRequest:cabAgencyLoginRequest=new cabAgencyLoginRequest();
   
   cabAgencyId:number=0
   cabAgencyEmail:String=""
@@ -44,12 +44,16 @@ export class LoginComponent {
   customerLogin()
   {
     console.log("customer login button clicked");
+    
 
     this.customerService.loginCustomer(this.customerId,this.customerEmail,this.customerPassword).subscribe(
       data=>{
         console.log(data);
         if(data==true)
         {
+          console.log( sessionStorage.setItem('loggedInCustomer',this.customerEmail.toString()) )
+        sessionStorage.setItem('loggedInCustomer',this.customerEmail.toString())
+
         this.router.navigateByUrl(`/customer/${this.customerId}`)
         }
        
@@ -62,23 +66,29 @@ export class LoginComponent {
   cabAgencyLogin()
   {
     console.log("login clicked")
-    this.cabAgencyService.loginCabAgencyService(this.cabAgencyId,this.cabAgencyEmail,this.cabAgencyPassword).subscribe(
+    
+    this.cabAgencyLoginRequest=new cabAgencyLoginRequest(this.cabAgencyId,this.cabAgencyEmail,this.cabAgencyPassword);
+    this.cabAgencyService.loginCabAgencyService(this.cabAgencyLoginRequest).subscribe(
       data=>{
+        
         if(data==true)
         {
+          console.log(data);
+          sessionStorage.setItem('loggedInCabAgency',this.cabAgencyEmail.toString())
           
            this.isLoggedIn=true;
            console.log(this.isLoggedIn)
           // this.isLogin=false;
           this.router.navigateByUrl(`/cabAgency/loggedIn/${this.isLoggedIn}/${this.cabAgencyId}`)
         }
-        else
+        else 
         {
           this.invalidCredentials=true;
         }
       },
       error=>{
         console.log(error);
+        this.invalidCredentials=true;
       }
 
       
@@ -86,6 +96,8 @@ export class LoginComponent {
      
     )
   }
+
+ 
 
 
  

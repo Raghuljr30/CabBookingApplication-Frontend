@@ -8,7 +8,7 @@
       </div>
 
       <div class="col   p-4 ps-5">
-         <p class="text-end"><button class="text-brave"> Logout</button></p> 
+         <p class="text-end"><button class="text-brave" (click)="customerLogout()"> Logout</button></p> 
       </div>
 
   </div>
@@ -22,7 +22,9 @@
       <h4>Note: Click booking over button once you reached your destination to make further booking in future</h4>
       <div class="p-2 bd-highlight">
         <p>Booking Id: {{ currentBooking.bookingId }}</p>
-        <p>Booked By: {{ currentBooking.customerName }}</p>
+         <p>Booking Date: {{customerCurrentBookingDate}}</p> 
+        <!-- <p *ngIf="currentBooking.bookingDate!=boolean && currentBooking.bookingDate!=number && currentBooking.bookingDate!=undefined"> Booking Date: {{currentBooking.bookingDate | date:'dd MMM HH:mm'}}</p> -->
+        <p >Booked By: {{ currentBooking.customerName }}</p>
         <p>Cab Number: {{ currentBooking.cabNumber }}  </p> 
         <p>Pickup Point: {{ currentBooking.pickUpLocation }}</p>
         <p>Drop Point: {{ currentBooking.dropLocation}}</p>

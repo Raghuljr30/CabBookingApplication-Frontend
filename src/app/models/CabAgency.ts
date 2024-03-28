@@ -1,3 +1,5 @@
+import { Driver } from "./Driver";
+
 export class CabAgency{
 
 
@@ -7,6 +9,7 @@ export class CabAgency{
         public cabAgencyEmail?:String,
         public cabAgencyPassword?:String,
         public cabAgencyMobileNumber?:number,
+        public driver?:Driver
        
     )
     {

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tick } from '@angular/core/testing';
 import { Action } from 'rxjs/internal/scheduler/Action';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-booking',
   standalone: true,
@@ -41,7 +41,8 @@ export class BookingComponent {
 
   customerId:number=0;
   constructor(private bookingService:BookingService,
-    private route:ActivatedRoute)
+    private route:ActivatedRoute,
+    private router:Router)
   {
     this.customerId=this.route.snapshot.params['id']
     this.bookingService.displayAllAvailableCabs().subscribe(
@@ -104,10 +105,17 @@ export class BookingComponent {
   makePayment()
   {
     console.log("payment made")
+
+   
     this.bookingService.bookCabService(this.customerId,this.cabBookedId,this.paymentType).subscribe(
       data=>{
         console.log(data)
         this.currentCabBookingExist=true;
+        this.router.navigateByUrl(`customer/${this.customerId}`)
+      },
+      error=>
+      {
+        window.alert(error.error)
       }
     )
   }

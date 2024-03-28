@@ -1,4 +1,7 @@
+import { publishFacade } from "@angular/compiler";
+import { Cab } from "./Cab";
 import { Payment } from "./Payment";
+import { Driver } from "./Driver";
 export class Booking{
     
     constructor(
@@ -9,6 +12,8 @@ export class Booking{
     public dropLocation ?:number,
     public bookingDate?:boolean,
     public payment?:Payment,
+    public cab?:Cab,
+    public driver?:Driver
     )
     {
 

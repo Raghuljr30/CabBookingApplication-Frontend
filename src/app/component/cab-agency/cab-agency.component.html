@@ -1,45 +1,79 @@
 
-
-
-  <div class="container-fluid">
-
-    <div class="bg-light row ">
-        <div class="col-8  ps-5 pt-4 ">
-        <p class="text-start">{{cabAgencyDetail.cabAgencyName}}</p>
+      <div *ngIf="!setViewProfile  && !setEditProfile" class="container-fluid ">
+        <div class="row align-items-center bg-light">
+            <div class="col-2">
+                <a class="navbar-brand" [routerLink]="['/home']">
+                    <img cImg src="assets/taxi.png" height="30" class="d-inline-block align-top" alt="Cab Logo">
+                </a>
+            </div>
+            <div class="col-6">
+                <span class="ps-5 pt-4">{{ cabAgencyDetail.cabAgencyName }}</span>
+            </div>
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Filter
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <button class="dropdown-item" (click)="displayCabAgencyFunction()">View All Cabs</button>
+                        <button class="dropdown-item" (click)="displayBookedCabs()">View Booked Cabs</button>
+                        <button class="dropdown-item" (click)="displayUnBookedCabs()">View Unbooked Cabs</button>
+                        <button class="dropdown-item" (click)="displayAllCurrentBooking()">View Current Booking</button>
+                        <button class="dropdown-item" (click)="displayAllBookings()">All Bookings</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-4 text-end">
+                    <div class="dropdown">
+                        <button class="btn" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          <img cImg src="assets/taxi.png" height="30" class="d-inline-block align-top" alt="Cab Logo">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                            <li><button class="dropdown-item" (click)="viewProfile()">View Profile</button></li>
+                            <li><button class="dropdown-item" (click)="editProfile()" >Edit Profile</button></li>
+                            <li><button class="dropdown-item" (click)="cabAgencyLogout()" >Logout</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col   p-4 ps-5">
-           <p class="text-end"><button class="text-brave"> Logout</button></p> 
-        </div>
-
     </div>
+    
 
    
-    </div>
 
-     <div class="container overflow-hidden">
+     
+    
+
+     <div *ngIf="!setViewProfile && !setEditProfile" class="mt-4 container overflow-hidden">
         <div class="row gy-3">
 
    
-            <div class="col-6">
+            <div class="col-4">
                 <button (click)="addCabs()">Add Cabs</button>
             </div >
                 
-            <div class="col-6">
+            <div class="col-4">
                 <button (click)="addDrivers()">Add Drivers</button>
             </div>
 
             <div class="col-4">
-                <button (click)="functionToBePerformed('changeCabLocation')">To Change Cab location</button>
+              <button (click)="registerCab()">Register Cab</button>
             </div>
 
             <div class="col-4">
+                <button (click)="functionToBePerformed('changeCabLocation')">To Change Cab location</button>
+            </div> 
+
+            <!-- <div class="col-4">
                 <button (click)="functionToBePerformed('changeMobileNumber')">To Change Mobile Number</button>
             </div>
 
             <div class="col-4">
                 <button (click)="functionToBePerformed('changePassword')">To Change Password</button> 
-            </div>
+            </div>  -->
             
             
             
@@ -51,7 +85,7 @@
 
 
 
-     <!-- <div class="mt-5 container">
+      <!-- <div class="mt-5 container">
         <div class=" row">
             <div class="col-4">
     
@@ -79,19 +113,19 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>  -->
 
 
      <div class="mt-5 container">
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-                <div *ngIf="setRole==='changeCabLocation' && changeCabAgencyLocationButtonClicked">
+                 <div *ngIf="setRole==='changeCabLocation' && changeCabAgencyLocationButtonClicked && !setViewProfile && !setEditProfile">
                     <h4>Change cab Location</h4>
                     <form id="changeCabLocationForm" class="pt-5" (ngSubmit)="updateCabPickUpAndDropPoint()" #changeCabLocationForm="ngForm">
                         <div class="mb-3">
                             <label for="cabId">Enter Cab Id</label><br>
-                            <input type="text" name="cabId" id="cabId" [(ngModel)]="cabId" required><br>
+                            <input type="number" name="cabId" id="cabId" [(ngModel)]="cabId" required><br>
                             <div *ngIf="changeCabLocationForm.controls['cabId'].invalid && (changeCabLocationForm.controls['cabId'].dirty || changeCabLocationForm.controls['cabId'].touched)" class="text-danger">
                                 Cab Id is required.
                             </div>
@@ -110,9 +144,17 @@
                                 Drop Location is required.
                             </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="cabFare">Enter Fare Amount</label><br>
+                            <input type="number" name="cabFare" id="cabFare" [(ngModel)]="cabFare" required><br>
+                            <div *ngIf="changeCabLocationForm.controls['cabFare'].invalid && (changeCabLocationForm.controls['cabFare'].dirty || changeCabLocationForm.controls['cabFare'].touched)" class="text-danger">
+                                Fare Amount is required
+                            </div>
+                        </div>
                         <button type="submit" [disabled]="changeCabLocationForm.invalid">Submit to Update</button>
                     </form>
-                </div>
+                 </div> 
             </div>
         </div>
     </div>
@@ -144,12 +186,12 @@
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-                <div *ngIf="setRole==='changeMobileNumber' && updateCabAgencyMobileNumberButtonClicked ">
+                <div *ngIf="setRole==='changeMobileNumber' && updateCabAgencyMobileNumberButtonClicked  ">
                     <h4>Change Mobile Number</h4>
                     <form class="pt-5" (ngSubmit)="updateCabAgencyMobileNumber()" #changeMobileNumberForm="ngForm">
                         <div class="mb-3">
                             <label for="newCabAgencyMobileNumber">Enter New Mobile Number</label><br>
-                            <input type="text" name="newCabAgencyMobileNumber" id="newCabAgencyMobileNumber" [(ngModel)]="cabAgencyNewMobileNumber" required><br>
+                            <input type="text" name="newCabAgencyMobileNumber" id="newCabAgencyMobileNumber" [(ngModel)]="cabAgencyNewMobileNumber" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number (0-9) without spaces or special character" ><br>
                             <div *ngIf="changeMobileNumberForm.controls['newCabAgencyMobileNumber'].invalid && (changeMobileNumberForm.controls['newCabAgencyMobileNumber'].dirty || changeMobileNumberForm.controls['newCabAgencyMobileNumber'].touched)" class="text-danger">
                                 New Mobile Number is required.
                             </div>
@@ -180,7 +222,7 @@
                     <form class="pt-5" [formGroup]="reactiveform" >
 
 
-                        <label for="password1" class="form-label">Password:</label>
+                        <label for="password1" class="form-label">New Password:</label>
                          <input type="password" id="password1" formControlName="password1" class="form-control"> 
                          <span *ngIf="f['password1'].getError('required')!=null" class="text-danger">Password is required</span><br>
                       
@@ -201,7 +243,7 @@
 
 
 
-    <div *ngIf="isLoggedInParam" class="pt-3 container">
+    <div *ngIf="isLoggedInParam && displayAllCabs && !setViewProfile && !setEditProfile" class="pt-3 container">
         <div class="row">
              
                     <div  *ngFor="let cab of cabListOfCabAgency" class="col-4" > 
@@ -221,8 +263,10 @@
                                     <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
                                     <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
                                     <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
-                                    <p class="text-start" >Vehicle Booked: {{cab.availability}}</p> 
-                     
+                                    <p *ngIf="cab.availability" class="text-start" >Vehicle Booked: No</p> 
+                                    <p *ngIf="!cab.availability" class="text-start" >Vehicle Booked: Yes</p> 
+                                    <p class="text-start">Vehicle Fare:{{cab.fair}}</p>
+                                    
                                   </div>
                                   <div class="p-2 flip-card-back" *ngIf="cab.driver">
 
@@ -265,6 +309,350 @@
 
 
 
+
+        <div *ngIf="isLoggedInParam && displayOnlyBookedCabs && !setViewProfile && !setEditProfile" class="pt-3 container">
+          <h3>Currently Booked Cabs</h3>  
+          <div class="row">
+                       
+                        <div  *ngFor="let cab of listOfOnlyBookedCabs" class="col-4" > 
+                        
+                            <!-- <div class="m-5 card" style="width: 22rem;"> -->
+                                <!-- <div class="card-body"> -->
+                                <!-- <p>Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                <p>Vehicle Id: {{cab.cabId}}</p>
+                                <p>Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                <p>Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                <p>Vehicle Booked: {{cab.availability}}</p> -->
+    
+                                <div class="flip-card">
+                                    <div class="flip-card-inner">
+                                      <div class="p-2 flip-card-front ">
+                                         <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                        <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                        <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                        <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                        <p *ngIf="cab.availability" class="text-start" >Vehicle Booked: No</p> 
+                                        <p *ngIf="!cab.availability" class="text-start" >Vehicle Booked: Yes</p> 
+                                        <p class="text-start">Vehicle Fare:{{cab.fair}}</p>
+                                      </div>
+                                      <div class="p-2 flip-card-back" *ngIf="cab.driver">
+    
+                                        <!-- <ng-container *ngFor="let key of cab.driver ? Object.keys(cab.driver) : []">
+                                            <p class="text-start">
+                                                {{ key }}: {{ cab.driver[key] }}
+                                            </p>
+                                        </ng-container> -->
+                                        <p class="text-start">Driver Id: {{cab.driver.driverId}}</p>
+                                        <p class="text-start">Driver Name: {{cab.driver.driverName}}</p>
+                                        <p class="text-start">Driver License Number: {{cab.driver.licenseNumber}}</p>
+                                        <p class="text-start">Driver Email: {{cab.driver.driverEmail}}</p>
+                                        <p class="text-start">Driver Mobile Number:{{cab.driver.driverMobileNumber}}</p>
+    
+                                        
+                                        <!-- <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                        <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                        <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                        <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                        <p class="text-start" >Vehicle Booked: {{cab.availability}}</p>  -->
+                         
+                                      </div>
+                                    </div>
+                                  </div>
+                              
+                                  
+                                <!-- </div> -->
+                              <!-- </div> -->
+                              
+                
+                        </div>
+                    
+                    
+        
+        
+                
+                </div>
+        
+            </div>
+
+
+        <div *ngIf="isLoggedInParam && displayOnlyUnBookedCabs && !setViewProfile && !setEditProfile" class="pt-3 container">
+            <div class="row">
+              <h3>UnBooked Cabs</h3>  
+                        <div  *ngFor="let cab of listOfOnlyUnBookedCabs" class="col-4" > 
+                        
+                            <!-- <div class="m-5 card" style="width: 22rem;"> -->
+                                <!-- <div class="card-body"> -->
+                                <!-- <p>Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                <p>Vehicle Id: {{cab.cabId}}</p>
+                                <p>Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                <p>Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                <p>Vehicle Booked: {{cab.availability}}</p> -->
+    
+                                <div class="flip-card">
+                                    <div class="flip-card-inner">
+                                      <div class="p-2 flip-card-front ">
+                                         <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                        <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                        <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                        <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                        <p *ngIf="cab.availability" class="text-start" >Vehicle Booked: No</p> 
+                                        <p *ngIf="!cab.availability" class="text-start" >Vehicle Booked: Yes</p> 
+                         
+                                      </div>
+                                      <div class="p-2 flip-card-back" *ngIf="cab.driver">
+    
+                                        <!-- <ng-container *ngFor="let key of cab.driver ? Object.keys(cab.driver) : []">
+                                            <p class="text-start">
+                                                {{ key }}: {{ cab.driver[key] }}
+                                            </p>
+                                        </ng-container> -->
+                                        <p class="text-start">Driver Id: {{cab.driver.driverId}}</p>
+                                        <p class="text-start">Driver Name: {{cab.driver.driverName}}</p>
+                                        <p class="text-start">Driver License Number: {{cab.driver.licenseNumber}}</p>
+                                        <p class="text-start">Driver Email: {{cab.driver.driverEmail}}</p>
+                                        <p class="text-start">Driver Mobile Number:{{cab.driver.driverMobileNumber}}</p>
+    
+                                        
+                                        <!-- <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                        <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                        <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                        <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                        <p class="text-start" >Vehicle Booked: {{cab.availability}}</p>  -->
+                         
+                                      </div>
+                                    </div>
+                                  </div>
+                              
+                                  
+                                <!-- </div> -->
+                              <!-- </div> -->
+                              
+                
+                        </div>
+                    
+                    
+        
+        
+                
+                </div>
+        
+            </div>
+        
+
+
+            
+        <div *ngIf="isLoggedInParam && displayOnlyCurrentBookings && !setViewProfile && !setEditProfile " class="pt-3 container">
+                <div class="row">
+                     
+                            <div  *ngFor="let booking of listOfOnlyCurrentBookings" class="col-4" > 
+                            
+                                <!-- <div class="m-5 card" style="width: 22rem;"> -->
+                                    <!-- <div class="card-body"> -->
+                                    <!-- <p>Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                    <p>Vehicle Id: {{cab.cabId}}</p>
+                                    <p>Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                    <p>Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                    <p>Vehicle Booked: {{cab.availability}}</p> -->
+        
+                                    <div class="flip-card">
+                                        <div class="flip-card-inner">
+                                          <div class="p-2 flip-card-front ">
+                                             <p class="text-start">Booking Id: {{booking.bookingId}}</p>  
+                                            <p   class="text-start" >Cab Booked: {{booking.cabNumber}}</p>
+                                            <p  class="text-start" >Customer Name: {{booking.customerName}}</p>
+                                            <!-- <p  *ngIf="booking.bookingDate" class="text-start" >Booking Date: {{booking.bookingDate | date}}</p> -->
+
+                                        
+                                            <p class="text-start" >Pickup Point: {{booking.pickUpLocation }}</p>
+                                            <p class="text-start" >Drop Point: {{booking.dropLocation }}</p>
+                                            <p *ngIf="booking.payment" class="text-start" > Fare: {{booking.payment.paidAmount}}</p>
+                                            <!-- <p *ngIf="cab.availability" class="text-start" >Vehicle Booked: No</p> 
+                                            <p *ngIf="!cab.availability" class="text-start" >Vehicle Booked: Yes</p>  -->
+                              
+                                          </div>
+                                         
+                                            
+                                            <!-- <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                            <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                            <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                            <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                            <p class="text-start" >Vehicle Booked: {{cab.availability}}</p>  -->
+                             
+                                          
+                                        </div>
+                                      </div>
+                                  
+                                      
+                                    <!-- </div> -->
+                                  <!-- </div> -->
+                                  
+                    
+                            </div>
+                        
+                        
+            
+            
+                    
+                    </div>
+            
+            </div>
+
+
+            <div *ngIf="isLoggedInParam && displayAllBooking  " class="pt-3 container">
+                  <div class="row">
+                      <h1>All Bookings</h1>
+                            <div  *ngFor="let booking of listOfAllBookings" class="col-4" > 
+                            
+                                <!-- <div class="m-5 card" style="width: 22rem;"> -->
+                                    <!-- <div class="card-body"> -->
+                                    <!-- <p>Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                    <p>Vehicle Id: {{cab.cabId}}</p>
+                                    <p>Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                    <p>Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                    <p>Vehicle Booked: {{cab.availability}}</p> -->
+        
+                                    <div class="m-1 flip-card">
+                                        <div class="flip-card-inner">
+                                          <div class="p-2 flip-card-front ">
+                                             <p class="text-start">Booking Id: {{booking.bookingId}}</p>  
+                                            <p   class="text-start" >Cab Booked: {{booking.cabNumber}}</p>
+                                            <p  class="text-start" >Customer Name: {{booking.customerName}}</p>
+                                            <!-- <p  *ngIf="booking.bookingDate" class="text-start" >Booking Date: {{booking.bookingDate | date}}</p> -->
+
+                                        
+                                            <p class="text-start" >Pickup Point: {{booking.pickUpLocation }}</p>
+                                            <p class="text-start" >Drop Point: {{booking.dropLocation }}</p>
+                                            <p *ngIf="booking.payment" class="text-start" > Fare: {{booking.payment.paidAmount}}</p>
+                                            <!-- <p *ngIf="cab.availability" class="text-start" >Vehicle Booked: No</p> 
+                                            <p *ngIf="!cab.availability" class="text-start" >Vehicle Booked: Yes</p>  -->
+                              
+                                          </div>
+
+                                          
+                                         
+                                            
+                                            <!-- <p class="text-start">Vehicle Number: {{cab.vehicleNumber}}</p>  
+                                            <p class="text-start" >Vehicle Id: {{cab.cabId}}</p>
+                                            <p class="text-start" >Vehicle Pickup Point: {{cab.pickUpPoint}}</p>
+                                            <p class="text-start" >Vehicle Drop Point: {{cab.dropPoint}}</p>
+                                            <p class="text-start" >Vehicle Booked: {{cab.availability}}</p>  -->
+                             
+                                          
+                                        </div>
+                                      </div>
+
+
+                                  
+                                      
+                                    <!-- </div> -->
+                                  <!-- </div> -->
+                                  
+                    
+                            </div>
+                        
+                        
+            
+            
+                    
+                    </div>
+            
+            </div>    
+
+            <!-- <div class="container mt-4" *ngIf="setViewProfile && !updateCabAgencyMobileNumberButtonClicked">
+              <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                      <div >
+                          <div class="card">
+                              <div class="card-header">
+                                  Profile Information
+                              </div>
+                              <div class="card-body">
+                                  <p><strong>ID:</strong> {{ cabAgencyDetail.cabAgencyId }} </p>
+                                  <p><strong>Name:</strong> {{ cabAgencyDetail.cabAgencyName }}</p>
+                                  <p><strong>Email:</strong> {{ cabAgencyDetail.cabAgencyEmail }}</p>
+                      <button (click)="functionToBePerformed('changeMobileNumber')">To Change Mobile Number</button>
+                <p><strong>Mobile Number:</strong> {{ cabAgencyDetail.cabAgencyMobileNumber }}</p>
+                                  <p><strong>Email:</strong> {{ cabAgencyDetail.cabAgencyEmail }}</p>
+                                  <p><strong>Password:</strong> <span class="password-mask">{{ maskedPassword }}</span></p>
+                <button (click)="functionToBePerformed('changePassword')">To Change Password</button> 
+
+
+                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+           -->
+
+
+           <div class="container mt-4" *ngIf="setViewProfile && !updateCabAgencyMobileNumberButtonClicked">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            Profile Information
+                            <button type="button" class="btn-close" aria-label="Close" (click)="closeProfile()">X</button>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>ID:</strong> {{ cabAgencyDetail.cabAgencyId }}</p>
+                            <p><strong>Name:</strong> {{ cabAgencyDetail.cabAgencyName }}</p>
+                            <p><strong>Email:</strong> {{ cabAgencyDetail.cabAgencyEmail }}</p>
+                            <p>
+                                <strong>Mobile Number:</strong> {{ cabAgencyDetail.cabAgencyMobileNumber }}
+                                <!-- <button class="btn btn-primary ms-2" (click)="functionToBePerformed('changeMobileNumber')">Change Mobile Number</button> -->
+                            </p>
+                            <p>
+                                <strong>Password:</strong> <span class="password-mask">{{ maskedPassword }}</span>
+                                <!-- <button class="btn btn-primary ms-2" (click)="functionToBePerformed('changePassword')">Change Password</button> -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+         <div class="container mt-4" *ngIf="setEditProfile d">
+          <div class="row justify-content-center">
+              <div class="col-md-8">
+                  <div class="card">
+                      <div class="card-header">
+                         Edit Profile 
+                          <button type="button" class="btn-close" aria-label="Close" (click)="closeEditProfile()">X</button>
+                      </div>
+                      <div class="card-body">
+                          <p><strong>ID:</strong> {{ cabAgencyDetail.cabAgencyId }}</p>
+                          <p><strong>Name:</strong> {{ cabAgencyDetail.cabAgencyName }}</p>
+                          <p><strong>Email:</strong> {{ cabAgencyDetail.cabAgencyEmail }}</p>
+                          
+                              <strong>Mobile Number:</strong> {{ cabAgencyDetail.cabAgencyMobileNumber }}
+                    <button class="btn  ms-1" (click)="functionToBePerformed('changeMobileNumber')">
+                    <img cImg src="assets/edit.png" height="30" class="d-inline-block align-top" alt="Cab Logo">
+
+                    </button>
+                             
+                              <div class="alert alert-success mt-3" *ngIf="mobileNumberUpdateSuccess">
+                                Mobile Number updated successfully! Go to Profile to view the changes
+                            </div><br>
+
+                          
+                              <strong>Password:</strong> <span class="password-mask">{{ maskedPassword }}</span>
+                    <button class="btn  ms-1 mt-2" (click)="functionToBePerformed('changePassword')">
+                    <img cImg src="assets/edit.png" height="30" class="d-inline-block align-top" alt="Cab Logo">
+
+                    </button>
+                              <div class="alert alert-success mt-3" *ngIf="passwordUpdateSuccess">
+                                Password updated successfully! Go to Profile to view the changes
+                            </div>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+       
     
 
 

@@ -41,97 +41,65 @@
 
 </div> 
 
-<div  *ngFor="let cab of cabs"> 
-  <!-- *ngIf="!cabBookingPayment"  -->
-  <div *ngIf="!currentCabBookingExist" class="border border-primary flex-column bd-highlight mb-1 ">
-    <div class="p-2 bd-highlight">
-      <p>Cab Number: {{ cab.vehicleNumber }}</p>
-      <p>Cab Model: {{ cab.cabModel }}</p>
+<div *ngIf="!cabBookingPayment">
+  <div  *ngFor="let cab of cabs"> 
+    <!-- *ngIf="!cabBookingPayment"  -->
+    <div *ngIf="!currentCabBookingExist" class="border border-primary flex-column bd-highlight mb-1 ">
+      <div class="p-2 bd-highlight">
+        <p>Cab Number: {{ cab.vehicleNumber }}</p>
+        <p>Cab Model: {{ cab.cabModel }}</p>
+        <p>Number Of Seats: {{ cab.numberOfSeats }}  </p> 
+        <p>Pickup Point: {{ cab.pickUpPoint }}</p>
+        <p>Drop Point: {{ cab.dropPoint }}</p>
+        <p>Fare:{{ cab.fair }}</p>
+      </div>
+      <button (click)="bookCabButtonClicked(cab)" class="ms-2 btn-group btn-group-sm">Book</button>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+<div *ngIf="!cabBookingPayment">
+  <div *ngFor="let cab of cabsByLocation" class="m-5 border border-primary flex-column bd-highlight mb-1 ">
+
+    <div  class="p-2 bd-highlight">
+      <p>Cab Vehicle Number: {{ cab.vehicleNumber }}</p>
+      <p>Cab Model: {{cab.cabModel}}</p>
       <p>Number Of Seats: {{ cab.numberOfSeats }}  </p> 
       <p>Pickup Point: {{ cab.pickUpPoint }}</p>
-      <p>Drop Point: {{ cab.dropPoint }}</p>
-      <p>Fare:{{ cab.fair }}</p>
+      <p>Drop Point: {{cab.dropPoint }}</p>
+      <p>Fare:{{  cab.fair }}</p>
+      <button (click)="bookCabButtonClicked(cab)">Book Cab</button>
     </div>
-    <button (click)="bookCabButtonClicked(cab)" class="ms-2 btn-group btn-group-sm">Book</button>
+    
     
   </div>
   
-  
 </div>
 
 
-  
- <!-- <table>
-    <thead>
-      <tr>
-        <th>Cab ID</th>
-        <th>Cab Model</th>
-        <th>Number of Seats</th>
-        <th>Pick Up Point</th>
-        <th>Drop Point</th>
-        <th>Fare</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let cab of cabsByLocation">
-        <td>{{ cab.cabId }}</td>
-        <td>{{ cab.cabModel }}</td>
-        <td>{{ cab.numberOfSeats }}</td>
-        <td>{{ cab.pickUpPoint }}</td>
-        <td>{{ cab.dropPoint }}</td>
-        <td>{{ cab.fair }}</td>
-       
-      </tr>
-    </tbody>
-  </table>  -->
 
+<div *ngIf="!cabBookingPayment">
+  <div *ngFor="let cab of cabs" class="m-5 border border-primary flex-column bd-highlight mb-1 ">
 
-<!-- <tbody>
-    <tr *ngFor="let cab of cabs">
-        <td>{{}}</td>
-        <td>{{cab.cabModel}}</td>
-        <td>{{}}</td>
-        <td>{{}}</td>
-        <td>{{}}</td>
-        <td>{{}}</td>
-       
-    </tr>
-</tbody>  -->
-
-<div *ngFor="let cab of cabsByLocation" class="m-5 border border-primary flex-column bd-highlight mb-1 ">
-
-  <div  class="p-2 bd-highlight">
-    <p>Cab Vehicle Number: {{ cab.vehicleNumber }}</p>
-    <p>Cab Model: {{cab.cabModel}}</p>
-    <p>Number Of Seats: {{ cab.numberOfSeats }}  </p> 
-    <p>Pickup Point: {{ cab.pickUpPoint }}</p>
-    <p>Drop Point: {{cab.dropPoint }}</p>
-    <p>Fare:{{  cab.fair }}</p>
-    <button (click)="bookCabButtonClicked(cab)">Book Cab</button>
+    <div  class="p-2 bd-highlight">
+      <p>Cab Id: {{ cab.cabId }}</p>
+      <p>Cab Model: {{cab.cabModel}}</p>
+      <p>Number Of Seats: {{ cab.numberOfSeats }}  </p> 
+      <p>Pickup Point: {{ cab.pickUpPoint }}</p>
+      <p>Drop Point: {{cab.dropPoint }}</p>
+      <p>Fare:{{  cab.fair }}</p>
+      <button (click)="bookCabButtonClicked(cab)">Book Cab</button>
+    </div>
+    
+    
   </div>
-  
-  
 </div>
 
-
-
-
-
-<div *ngFor="let cab of cabs" class="m-5 border border-primary flex-column bd-highlight mb-1 ">
-
-  <div  class="p-2 bd-highlight">
-    <p>Cab Id: {{ cab.cabId }}</p>
-    <p>Cab Model: {{cab.cabModel}}</p>
-    <p>Number Of Seats: {{ cab.numberOfSeats }}  </p> 
-    <p>Pickup Point: {{ cab.pickUpPoint }}</p>
-    <p>Drop Point: {{cab.dropPoint }}</p>
-    <p>Fare:{{  cab.fair }}</p>
-    <button (click)="bookCabButtonClicked(cab)">Book Cab</button>
-  </div>
-  
-  
-</div>
 
 
 
@@ -146,28 +114,28 @@
         <div *ngIf="cabBookingPayment">
           <h4>Payment</h4>
 
-          <label for="cabId">Cab Id</label><br>
-          <input type="text" id="cabId" name="cabId" [value]="cabBookedId"><br>
+          <label class="form-label" for="cabId">Cab Id</label>
+          <input class="form-control" type="text" id="cabId" name="cabId" [value]="cabBookedId">
       
-          <label for="cabVehicleNumber">Vehicle Number</label><br>
-          <input type="text" id="cabVehicleNumber" name="cabVehicleNumber" [value]="cabBookedvehicleNumber"><br>
-      
-      
-          <label for="cabAgencyName">Agency Name</label><br>
-          <input type="text" id="cabAgencyName" name="cabAgencyName" [value]="cabBookedCabAgencyName"><br>
-      
-          <label for="cabPickUpLocation">Pickup Point</label><br>
-          <input type="text" id="cabPickUpLocation"  name="cabPickUpLocation" [value]="cabBookedPickUpPoint"><br>
+          <label class="form-label" for="cabVehicleNumber">Vehicle Number</label>
+          <input   class="form-control" type="text" id="cabVehicleNumber" name="cabVehicleNumber" [value]="cabBookedvehicleNumber">
       
       
-          <label for="cabDropLocation">Drop Point</label><br>
-          <input type="text" id="cabDropLocation"  name="cabDropLocation" [value]="cabBookedDropPoint"><br>
+          <label class="form-label" for="cabAgencyName">Agency Name</label>
+          <input  class="form-control" type="text" id="cabAgencyName" name="cabAgencyName" [value]="cabBookedCabAgencyName">
       
-          <label for="cabfare">Fare</label><br>
-          <input type="text" id="cabfare"  name="cabfare" [value]="cabBookedfair"><br>
+          <label class="form-label" for="cabPickUpLocation">Pickup Point</label>
+          <input  class="form-control" type="text" id="cabPickUpLocation"  name="cabPickUpLocation" [value]="cabBookedPickUpPoint">
       
-          <label for="bookingPayment">Payment Type</label><br>
-          <input type="text" id="paymentType" name="paymentType" [(ngModel)]="paymentType">
+      
+          <label class="form-label" for="cabDropLocation">Drop Point</label>
+          <input  class="form-control" type="text" id="cabDropLocation"  name="cabDropLocation" [value]="cabBookedDropPoint">
+      
+          <label class="form-label" for="cabfare">Fare</label><br>
+          <input  class="form-control" type="text" id="cabfare"  name="cabfare" [value]="cabBookedfair">
+      
+          <label class="form-label" for="bookingPayment">Payment Type</label>
+          <input  class="form-control" type="text" id="paymentType" name="paymentType" [(ngModel)]="paymentType"><br>
       
           <button (click)="makePayment()">Pay</button>
       

@@ -1,11 +1,8 @@
-<p>cab works!</p>
+
 
     
-<form id="form-cab">
+<!-- <form  class="m-5" id="form-cab">
    
-    <label>Cab Id</label><br>
-    <input type="text" name="cabId" id="cabId" [(ngModel)]="cab.cabId"><br>
-
     <label>Cab Model</label><br>
     <input type="text" name="cabModel" id="cabModel" [(ngModel)]="cab.cabModel"><br>
 
@@ -40,3 +37,106 @@
 
     <button (click)="signupCab()">register now</button>
 </form>
+
+ -->
+
+ <div  class="container">
+    
+    
+    <div class="row">
+
+        <div class="col-4">
+
+        </div>
+        <div class="pt-4  col-4">
+           <h1>Cab Registration</h1>
+            
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Cab Model</label>
+                    <input class="form-control" type="text" name="cabModel" id="cabModel" [(ngModel)]="cab.cabModel" >
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Number of Seats</label>
+                    <input class="form-control" type="text" name="numberOfSeats" id="numberOfSeats" [(ngModel)]="cab.numberOfSeats" >
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Vehicle Number</label>
+                    <input class="form-control" type="text" name="vehicleNumber" id="vehicleNumber" [(ngModel)]="cab.vehicleNumber" >
+            
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Availability</label>
+                    <select class="form-select" name="availability" id="availability" [(ngModel)]="availability">
+                       
+                        <option [ngValue]="true">True</option>
+                        <option [ngValue]="false">False</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Agency Name</label>
+                    <input class="form-control" type="text" name="agencyName" id="agencyName" [(ngModel)]="cab.agencyName" >
+
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Agency Id</label>
+                    <input class="form-control" type="text" name="driverAgencyId" id="driverAgencyId" [(ngModel)]="cab.driverAgencyId" >
+
+                </div>
+
+
+
+                <div class="mb-3">
+                    <label class="form-label">Pickup Location</label>
+                    <input class="form-control" type="text" name="pickUpPoint" id="pickUpPoint" [(ngModel)]="cab.pickUpPoint" >
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Drop Location</label>
+                    <input class="form-control" type="text" name="dropPoint" id="dropPoint" [(ngModel)]="cab.dropPoint" >
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"> Fare</label>
+                    <input class="form-control" type="text" name="fair" id="fair" [(ngModel)]="cab.fair" >
+
+                </div>
+
+                <div class="mb-3">
+                    <select class="form-select" name="ac" id="ac" [(ngModel)]="cab.ac">
+                        <option value="">Select AC</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label"> Agency Id</label>
+                    <input class="form-control" type="text" name="cabAgencyId" id="cabAgencyId" [(ngModel)]="cab.cabAgencyId" >
+
+                </div>
+
+             <button (click)="registerCab()" >Signup</button>
+        
+            </form>
+        
+
+        </div>
+    </div>
+
+
+</div>
+
+
+

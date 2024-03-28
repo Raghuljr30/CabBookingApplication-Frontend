@@ -1,27 +1,22 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">
+        <img cImg src="assets/taxi.png" height="30" class="d-inline-block align-top">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
+   
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Sigup
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <!-- <li><a class="dropdown-item" href="#">Customer</a></li>
-              <li><a class="dropdown-item" href="#">Cab Agency</a></li>
-              <li><a class="dropdown-item" href="#">Driver</a></li> -->
+            
               <li><button (click)="signup('driver')">Driver</button></li>
               <li><button (click)="signup('cabAgency')">Cab Agency</button></li>
               <li><button (click)="signup('customer')">Customer</button></li>
@@ -41,18 +36,27 @@
           </li>
 
 
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li> -->
+        
         </ul>
-        <!-- <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> -->
-
+     
       </div>
     </div>
-  </nav>
+  </nav> 
+
+
+ 
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Welcome to Cab Booking</h1>
+      <p>Find the best cabs for your travel needs. Book with ease and convenience.</p>
+    </div>
+    <div class="col-md-6">
+      <!-- Add an image or other visual elements to complement your content -->
+      <img cImg src="assets/cab.png" width="200" >
+    </div>
+  </div>
+</div>
 
 
 
